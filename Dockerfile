@@ -31,6 +31,10 @@ COPY --from=uv --chown=app:app /app/.venv /app/.venv
 
 # Place executables in the environment at the front of the path
 ENV PATH="/app/.venv/bin:$PATH"
+ENV API_KEY=""
+
+## Export port
+EXPOSE 8000
 
 # when running the container, add --db-path and a bind mount to the host's db file
-ENTRYPOINT ["mcp-scholarly"]
+ENTRYPOINT mcpo --port 8000 --api-key ${API_KEY} mcp-scholarly -- mcp-scholarly
